@@ -1,7 +1,7 @@
 {
   "brand": {
     "name": "مطبخ فتح الله ماركت",
-    "phone": "201212683843",
+    "phone": "201212494501",
     "description": "نقدم أشهى المأكولات بأجود المكونات وأعلى معايير الجودة",
     "colors": {
       "primary": "#FF6B00",
@@ -176,4 +176,5 @@
       "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=600&h=400&fit=crop"
     }
   ]
+
 }
