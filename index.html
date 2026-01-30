@@ -223,17 +223,20 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="group">المجموعة *</label>
-                                    <input type="text" id="group" placeholder="رقم أو اسم المجموعة" required>
+                                    <input type="text" id="group" placeholder="رقم المجموعة" required inputmode="numeric" pattern="[0-9]*">
+                                    <div class="error-message" id="groupError"></div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="building">العمارة *</label>
-                                    <input type="text" id="building" placeholder="رقم العمارة" required>
+                                    <input type="text" id="building" placeholder="رقم العمارة" required inputmode="numeric" pattern="[0-9]*">
+                                    <div class="error-message" id="buildingError"></div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="apartment">الشقة *</label>
-                                    <input type="text" id="apartment" placeholder="رقم الشقة" required>
+                                    <input type="text" id="apartment" placeholder="رقم الشقة" required inputmode="numeric" pattern="[0-9]*">
+                                    <div class="error-message" id="apartmentError"></div>
                                 </div>
                             </div>
                             
@@ -316,10 +319,13 @@
                         </div>
                         
                         <!-- الإرسال -->
-                        <button type="submit" class="btn btn-submit" id="submitOrder" disabled>
-                            <i class="fab fa-whatsapp"></i>
-                            <span>إرسال الطلب عبر واتساب</span>
-                        </button>
+                        <div class="submit-wrapper">
+                            <button type="submit" class="btn btn-submit" id="submitOrder" disabled>
+                                <i class="fab fa-whatsapp"></i>
+                                <span class="submit-text">إرسال الطلب عبر واتساب</span>
+                                <span class="submit-count" style="display: none;">(<span id="orderItemCount">0</span> منتج)</span>
+                            </button>
+                        </div>
                         
                         <p class="form-notice">
                             <i class="fas fa-info-circle"></i>

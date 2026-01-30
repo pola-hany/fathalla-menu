@@ -1,4 +1,4 @@
-// تطبيق مطبخ فتح الله ماركت - النسخة النهائية
+// تطبيق مطبخ فتح الله ماركت - النسخة النهائية مع التعديلات
 const FathallaApp = {
     // البيانات (سيتم تحميلها من JSON)
     data: null,
@@ -272,6 +272,27 @@ const FathallaApp = {
             });
         }
         
+        // تحقق من الحقول الرقمية داخل الرحاب
+        ["group", "building", "apartment"].forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener("input", (e) => {
+                    this.validateNumericField(e.target);
+                    requestAnimationFrame(() => this.validateForm());
+                });
+                
+                // منع إدخال حروف
+                element.addEventListener("keypress", (e) => {
+                    const charCode = e.which ? e.which : e.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        e.preventDefault();
+                        return false;
+                    }
+                    return true;
+                });
+            }
+        });
+        
         // إرسال الطلب
         const orderForm = document.getElementById("orderForm");
         if (orderForm) {
@@ -322,6 +343,30 @@ const FathallaApp = {
         window.addEventListener('beforeunload', () => {
             this.cleanup();
         });
+    },
+    
+    // التحقق من الحقول الرقمية
+    validateNumericField(field) {
+        const value = field.value.trim();
+        const errorElement = document.getElementById(field.id + "Error");
+        
+        if (!value) {
+            if (errorElement) errorElement.textContent = "";
+            field.classList.remove("error");
+            return true;
+        }
+        
+        // التحقق من أن القيمة تحتوي على أرقام فقط
+        const numericRegex = /^[0-9]+$/;
+        if (!numericRegex.test(value)) {
+            if (errorElement) errorElement.textContent = "يجب أن يحتوي على أرقام فقط";
+            field.classList.add("error");
+            return false;
+        }
+        
+        if (errorElement) errorElement.textContent = "";
+        field.classList.remove("error");
+        return true;
     },
     
     // التحقق من وقت الاستلام
@@ -809,6 +854,27 @@ const FathallaApp = {
         
         // تحديث فاتورة الجوال
         this.updateMobileCart(totalItems, totalPrice);
+        
+        // تحديث عدد المنتجات في زر الإرسال
+        this.updateSubmitButtonCount(totalItems);
+    },
+    
+    // تحديث عدد المنتجات في زر الإرسال
+    updateSubmitButtonCount(totalItems) {
+        const orderItemCount = document.getElementById("orderItemCount");
+        const submitCount = document.querySelector(".submit-count");
+        
+        if (orderItemCount) {
+            orderItemCount.textContent = totalItems;
+        }
+        
+        if (submitCount) {
+            if (totalItems > 0) {
+                submitCount.style.display = "inline-flex";
+            } else {
+                submitCount.style.display = "none";
+            }
+        }
     },
     
     // تحديث فاتورة الجوال
@@ -1058,6 +1124,12 @@ const FathallaApp = {
                 const building = document.getElementById("building");
                 const apartment = document.getElementById("apartment");
                 
+                // التحقق من أن الحقول تحتوي على أرقام فقط
+                if (group && !this.validateNumericField(group)) isValid = false;
+                if (building && !this.validateNumericField(building)) isValid = false;
+                if (apartment && !this.validateNumericField(apartment)) isValid = false;
+                
+                // التحقق من وجود القيم
                 if ((group && !group.value.trim()) || 
                     (building && !building.value.trim()) || 
                     (apartment && !apartment.value.trim())) {
@@ -1088,6 +1160,15 @@ const FathallaApp = {
         const submitBtn = document.getElementById("submitOrder");
         if (submitBtn) {
             submitBtn.disabled = !isValid;
+            
+            // إضافة/إزالة الأنيميشن إذا كان الزر مفعلاً
+            if (isValid && this.cart.length > 0) {
+                submitBtn.classList.add("enabled");
+                submitBtn.title = "اضغط لإرسال الطلب عبر واتساب";
+            } else {
+                submitBtn.classList.remove("enabled");
+                submitBtn.title = "أكمل البيانات المطلوبة";
+            }
         }
         
         return isValid;
