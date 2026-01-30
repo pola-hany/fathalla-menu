@@ -1,4 +1,4 @@
-// تطبيق مطبخ فتح الله ماركت - يعتمد كلياً على ملف JSON
+// تطبيق مطبخ فتح الله ماركت - النسخة النهائية
 const FathallaApp = {
     // البيانات (سيتم تحميلها من JSON)
     data: null,
@@ -24,12 +24,20 @@ const FathallaApp = {
             const response = await fetch('menu-data.json');
             
             if (!response.ok) {
-                throw new Error(`خطأ HTTP: ${response.status}`);
+                throw new Error(`خطأ HTTP: ${response.status} ${response.statusText}`);
             }
             
-            this.data = await response.json();
+            const text = await response.text();
             
-            // التحقق من صحة بنية البيانات
+            // التحقق من أن الملف ليس فارغاً
+            if (!text.trim()) {
+                throw new Error('ملف JSON فارغ');
+            }
+            
+            // تحليل JSON
+            this.data = JSON.parse(text);
+            
+            // التحقق من هيكل البيانات الأساسي
             if (!this.data || typeof this.data !== 'object') {
                 throw new Error('بيانات JSON غير صالحة');
             }
@@ -37,78 +45,94 @@ const FathallaApp = {
             // تعيين رقم الواتساب من البيانات
             if (this.data.brand && this.data.brand.phone) {
                 this.whatsappNumber = this.data.brand.phone;
+                console.log('📞 رقم الواتساب:', this.whatsappNumber);
             } else {
-                // رقم افتراضي إذا لم يوجد في JSON
                 this.whatsappNumber = "201234567890";
             }
             
-            // التحقق من وجود البيانات الأساسية
-            if (!this.data.sections) {
-                console.warn('⚠️ لم يتم العثور على الأقسام في JSON');
-                this.data.sections = [];
-            }
-            
-            if (!this.data.menu_items) {
-                console.warn('⚠️ لم يتم العثور على الأصناف في JSON');
-                this.data.menu_items = [];
-            }
-            
-            if (!this.data.offers) {
-                console.warn('⚠️ لم يتم العثور على العروض في JSON');
-                this.data.offers = [];
-            }
+            // تهيئة البيانات إذا كانت غير موجودة
+            if (!this.data.sections) this.data.sections = [];
+            if (!this.data.menu_items) this.data.menu_items = [];
+            if (!this.data.offers) this.data.offers = [];
             
             this.dataLoaded = true;
             this.renderApp();
+            
             console.log('✅ تم تحميل البيانات بنجاح:', {
-                sections: this.data.sections?.length || 0,
-                items: this.data.menu_items?.length || 0,
-                offers: this.data.offers?.length || 0
+                أقسام: this.data.sections.length,
+                أصناف: this.data.menu_items.length,
+                عروض: this.data.offers.length
             });
             
         } catch (error) {
             console.error("❌ خطأ في تحميل البيانات من JSON:", error);
-            
-            // إظهار رسالة خطأ للمستخدم
-            this.showMessage("حدث خطأ في تحميل قائمة الطعام. يرجى المحاولة لاحقاً.", "error");
-            
-            // إظهار حالة التحميل الفاشل
-            this.showErrorState();
+            this.showMessage("حدث خطأ في تحميل البيانات. جاري استخدام البيانات الافتراضية.", "error");
+            this.useDefaultData();
         }
     },
     
-    // إظهار حالة الخطأ
-    showErrorState() {
-        const menuGrid = document.getElementById("menuGrid");
-        if (menuGrid) {
-            menuGrid.innerHTML = `
-                <div class="loading" style="color: #dc3545;">
-                    <i class="fas fa-exclamation-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                    <p>حدث خطأ في تحميل القائمة</p>
-                    <small>يرجى التأكد من وجود ملف menu-data.json</small>
-                </div>
-            `;
-        }
+    // استخدام بيانات افتراضية عند فشل التحميل
+    useDefaultData() {
+        console.log('🔄 استخدام البيانات الافتراضية...');
         
-        const offersGrid = document.getElementById("offersGrid");
-        if (offersGrid) {
-            offersGrid.innerHTML = `
-                <div class="offer-card" style="text-align: center; padding: 40px 20px;">
-                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ffc107; margin-bottom: 20px;"></i>
-                    <p>لا يمكن تحميل العروض حالياً</p>
-                </div>
-            `;
-        }
+        this.data = {
+            brand: {
+                name: "مطبخ فتح الله ماركت",
+                phone: "201234567890",
+                description: "نقدم أشهى المأكولات بأجود المكونات وأعلى معايير الجودة",
+                colors: {
+                    primary: "#FF6B00",
+                    secondary: "#000000",
+                    accent: "#FFFFFF"
+                }
+            },
+            sections: [
+                { id: "grills", name: "المشويات", icon: "fas fa-fire" },
+                { id: "meals", name: "الوجبات", icon: "fas fa-utensils" },
+                { id: "sandwiches", name: "السندوتشات", icon: "fas fa-bread-slice" },
+                { id: "extras", name: "الإضافات", icon: "fas fa-plus-circle" },
+                { id: "drinks", name: "المشروبات", icon: "fas fa-glass-whiskey" }
+            ],
+            menu_items: [
+                {
+                    id: 1,
+                    name: "شيش طاووق",
+                    description: "دجاج مشوي مع الخضار والتوابل الخاصة",
+                    price: 65.00,
+                    offerPrice: 55.00,
+                    image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400&h=300&fit=crop",
+                    category: "grills",
+                    available: true,
+                    badge: "الأكثر طلباً",
+                    popular: true
+                },
+                {
+                    id: 2,
+                    name: "كفتة مشوية",
+                    description: "كفتة لحم ضأن مشوية على الفحم",
+                    price: 70.00,
+                    offerPrice: 60.00,
+                    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop",
+                    category: "grills",
+                    available: true,
+                    badge: "عرض",
+                    popular: false
+                }
+            ],
+            offers: [
+                {
+                    id: "offer1",
+                    title: "عرض العائلة",
+                    description: "وجبتين مشويات + إضافتين + مشروبان",
+                    originalPrice: 180,
+                    offerPrice: 150,
+                    image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=600&h=400&fit=crop"
+                }
+            ]
+        };
         
-        const categoryFilters = document.getElementById("categoryFilters");
-        if (categoryFilters) {
-            categoryFilters.innerHTML = `
-                <button class="category-btn" disabled>
-                    <i class="fas fa-exclamation-circle"></i>
-                    <span>لا توجد أقسام</span>
-                </button>
-            `;
-        }
+        this.dataLoaded = true;
+        this.renderApp();
     },
     
     // تحديث الوقت الحالي
@@ -185,6 +209,8 @@ const FathallaApp = {
     
     // ربط الأحداث
     bindEvents() {
+        console.log('🔗 ربط الأحداث...');
+        
         // زر القائمة المتنقلة
         const navToggle = document.getElementById("navToggle");
         const navLinks = document.getElementById("navLinks");
@@ -221,6 +247,7 @@ const FathallaApp = {
                 
                 this.validateForm();
                 this.updateOrderSummary();
+                this.updateMobileCartContent();
             });
         });
         
@@ -259,6 +286,35 @@ const FathallaApp = {
         if (floatingBtn) {
             floatingBtn.addEventListener("click", () => {
                 document.getElementById("order").scrollIntoView({ behavior: "smooth" });
+            });
+        }
+        
+        // أحداث فاتورة الجوال
+        const mobileCartToggle = document.getElementById("mobileCartToggle");
+        const closeCartSummary = document.getElementById("closeCartSummary");
+        const cartSummaryMobile = document.getElementById("cartSummaryMobile");
+        
+        if (mobileCartToggle && cartSummaryMobile) {
+            mobileCartToggle.addEventListener("click", () => {
+                cartSummaryMobile.classList.add("show");
+                document.body.style.overflow = "hidden";
+            });
+        }
+        
+        if (closeCartSummary && cartSummaryMobile) {
+            closeCartSummary.addEventListener("click", () => {
+                cartSummaryMobile.classList.remove("show");
+                document.body.style.overflow = "auto";
+            });
+        }
+        
+        // إغلاق فاتورة الجوال عند النقر خارجها
+        if (cartSummaryMobile) {
+            cartSummaryMobile.addEventListener("click", (e) => {
+                if (e.target === cartSummaryMobile) {
+                    cartSummaryMobile.classList.remove("show");
+                    document.body.style.overflow = "auto";
+                }
             });
         }
         
@@ -316,9 +372,7 @@ const FathallaApp = {
         if (!this.data || !this.data.brand) return;
         
         // تحديث عنوان الصفحة
-        if (this.data.brand.name) {
-            document.title = this.data.brand.name + " | قائمة الطعام الرسمية";
-        }
+        document.title = this.data.brand.name + " | قائمة الطعام الرسمية";
         
         // تحديث الهيدر
         const brandName = document.querySelector('.brand-name h1');
@@ -413,7 +467,7 @@ const FathallaApp = {
             const finalPrice = hasOffer ? item.offerPrice : item.price;
             const cartItem = this.cart.find(c => c.id === item.id);
             const quantity = cartItem ? cartItem.quantity : 0;
-            const isAvailable = item.available !== false; // true إذا لم يتم تحديد
+            const isAvailable = item.available !== false;
             
             html += `
                 <div class="menu-item ${!isAvailable ? 'unavailable' : ''}" data-category="${item.category || 'uncategorized'}" data-id="${item.id}">
@@ -647,6 +701,7 @@ const FathallaApp = {
             this.saveCart();
             this.updateCartDisplay();
             this.updateOrderSummary();
+            this.updateMobileCartContent();
             this.validateForm();
             this.showMessage(`تم إضافة "${offer.title}" إلى السلة`, "success");
         });
@@ -690,6 +745,7 @@ const FathallaApp = {
                         this.saveCart();
                         this.updateCartDisplay();
                         this.updateOrderSummary();
+                        this.updateMobileCartContent();
                         this.updateItemDisplay(itemId);
                     });
                 }
@@ -731,7 +787,7 @@ const FathallaApp = {
         const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
         const totalPrice = this.cart.reduce((sum, item) => sum + (item.total || 0), 0);
         
-        // العداد
+        // العداد الأساسي
         const cartCount = document.querySelector(".cart-count");
         const totalPriceElement = document.getElementById("totalPrice");
         
@@ -750,6 +806,135 @@ const FathallaApp = {
             // إظهار/إخفاء الزر العائم
             floatingBtn.style.display = totalItems > 0 ? "flex" : "none";
         }
+        
+        // تحديث فاتورة الجوال
+        this.updateMobileCart(totalItems, totalPrice);
+    },
+    
+    // تحديث فاتورة الجوال
+    updateMobileCart(totalItems, totalPrice) {
+        const mobileCartToggle = document.getElementById("mobileCartToggle");
+        const mobileCartCount = document.querySelector(".mobile-cart-count");
+        
+        if (mobileCartToggle && mobileCartCount) {
+            if (totalItems > 0) {
+                mobileCartToggle.style.display = "flex";
+                mobileCartCount.textContent = totalItems;
+            } else {
+                mobileCartToggle.style.display = "none";
+            }
+        }
+        
+        // تحديث محتوى فاتورة الجوال
+        this.updateMobileCartContent();
+    },
+    
+    // تحديث محتوى فاتورة الجوال
+    updateMobileCartContent() {
+        const container = document.getElementById("summaryItemsMobile");
+        const totalContainer = document.getElementById("summaryTotalMobile");
+        
+        if (!container || !totalContainer) return;
+        
+        if (this.cart.length === 0) {
+            container.innerHTML = `
+                <div class="empty-cart" style="text-align: center; padding: 30px 20px; color: var(--gray);">
+                    <i class="fas fa-shopping-basket" style="font-size: 40px; margin-bottom: 15px;"></i>
+                    <p>السلة فارغة</p>
+                    <small>أضف أصنافاً من القائمة</small>
+                </div>
+            `;
+            
+            totalContainer.innerHTML = "";
+            return;
+        }
+        
+        // عرض العناصر
+        let html = "";
+        let subtotal = 0;
+        
+        this.cart.forEach(item => {
+            subtotal += item.total || 0;
+            const hasOffer = item.originalPrice && item.price < item.originalPrice;
+            
+            html += `
+                <div class="summary-item" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee;">
+                    <div class="item-info">
+                        <h4 style="margin: 0; font-size: 15px;">${item.name}</h4>
+                        ${hasOffer ? `<small class="offer-text" style="color: var(--orange); font-size: 11px;">عرض خاص</small>` : ""}
+                    </div>
+                    <div class="item-total" style="text-align: right;">
+                        <span style="display: block; font-size: 13px; color: var(--gray);">
+                            ${item.quantity} × ${item.price?.toFixed(2) || '0.00'} ج.م
+                        </span>
+                        <strong style="display: block; font-size: 16px; color: var(--black);">
+                            ${item.total?.toFixed(2) || '0.00'} ج.م
+                        </strong>
+                    </div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+        
+        // حساب التوصيل
+        const addressType = document.querySelector('input[name="addressType"]:checked')?.value || "inside";
+        let delivery = 0;
+        
+        if (addressType === "inside") {
+            delivery = 30;
+        } else if (addressType === "branch") {
+            delivery = 0;
+        }
+        
+        const total = addressType === "outside" ? subtotal : subtotal + delivery;
+        
+        // عرض الإجمالي
+        let totalHtml = `
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee;">
+                <div class="total-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>المجموع</span>
+                    <span>${subtotal.toFixed(2)} ج.م</span>
+                </div>
+        `;
+        
+        if (addressType === "inside") {
+            totalHtml += `
+                <div class="total-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>رسوم التوصيل</span>
+                    <span>${delivery.toFixed(2)} ج.م</span>
+                </div>
+                <div class="total-row grand-total" style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; color: var(--orange); margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--orange);">
+                    <span>الإجمالي</span>
+                    <span>${total.toFixed(2)} ج.م</span>
+                </div>
+            `;
+        } else if (addressType === "outside") {
+            totalHtml += `
+                <div class="total-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>رسوم التوصيل</span>
+                    <span style="color: var(--orange); font-weight: 600;">يتم تحديدها من الكول سنتر</span>
+                </div>
+                <div class="total-row grand-total" style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; color: var(--orange); margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--orange);">
+                    <span>الإجمالي</span>
+                    <span>${subtotal.toFixed(2)} ج.م <small style="font-size: 12px;">(+ رسوم التوصيل)</small></span>
+                </div>
+            `;
+        } else if (addressType === "branch") {
+            totalHtml += `
+                <div class="total-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>رسوم التوصيل</span>
+                    <span style="color: #28A745;">0.00 ج.م</span>
+                </div>
+                <div class="total-row grand-total" style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; color: var(--orange); margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--orange);">
+                    <span>الإجمالي</span>
+                    <span>${subtotal.toFixed(2)} ج.م</span>
+                </div>
+            `;
+        }
+        
+        totalHtml += `</div>`;
+        totalContainer.innerHTML = totalHtml;
     },
     
     // تحديث ملخص الطلب
@@ -884,11 +1069,9 @@ const FathallaApp = {
                     isValid = false;
                 }
             } else if (type === "branch") {
-                const branchName = document.getElementById("branchName");
                 const pickupTime = document.getElementById("pickupTime");
                 
-                if ((branchName && !branchName.value) || 
-                    (pickupTime && !pickupTime.value)) {
+                if ((pickupTime && !pickupTime.value)) {
                     isValid = false;
                 } else if (pickupTime && !this.validatePickupTime()) {
                     isValid = false;
@@ -946,12 +1129,12 @@ const FathallaApp = {
             address += `📦 *العنوان:* ${fullAddress}`;
             if (outsideNotes) address += `\n📝 *ملاحظات:* ${outsideNotes}`;
         } else if (addressType === "branch") {
-            const branchName = document.getElementById("branchName").value;
             const pickupTime = document.getElementById("pickupTime").value;
             const branchNotes = document.getElementById("branchNotes").value.trim();
             
             address = `🏪 *استلام من الفرع*\n`;
-            address += `🏬 *الفرع:* ${branchName}\n`;
+            address += `🏬 *الفرع:* الفرع الرئيسي - الرحاب\n`;
+            address += `📍 *العنوان:* الرحاب، أمام مسجد الرحاب\n`;
             address += `🕒 *وقت الاستلام:* ${pickupTime}`;
             if (branchNotes) address += `\n📝 *ملاحظات:* ${branchNotes}`;
         }
@@ -1012,6 +1195,7 @@ const FathallaApp = {
             this.saveCart();
             this.updateCartDisplay();
             this.updateOrderSummary();
+            this.updateMobileCartContent();
             
             // تحديث الكميات
             if (this.data && this.data.menu_items) {
@@ -1084,32 +1268,6 @@ const FathallaApp = {
                 setTimeout(() => msg.remove(), 300);
             }
         }, 5000);
-        
-        // إضافة الأنيميشن إذا لم تكن موجودة
-        if (!document.querySelector("#alert-animations")) {
-            const style = document.createElement("style");
-            style.id = "alert-animations";
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes slideOut {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(100%); opacity: 0; }
-                }
-                .close-btn {
-                    background: none;
-                    border: none;
-                    color: white;
-                    cursor: pointer;
-                    margin-right: auto;
-                    padding: 0;
-                    font-size: 16px;
-                }
-            `;
-            document.head.appendChild(style);
-        }
     }
 };
 

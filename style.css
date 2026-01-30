@@ -827,6 +827,48 @@ body {
     border-radius: var(--radius);
 }
 
+/* معلومات الفرع */
+.branch-info {
+    background: rgba(255,107,0,0.1);
+    padding: 15px;
+    border-radius: var(--radius);
+    border-right: 4px solid var(--orange);
+    margin-bottom: 20px;
+}
+
+.branch-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.branch-header i {
+    color: var(--orange);
+    font-size: 1.2rem;
+}
+
+.branch-header h4 {
+    margin: 0;
+    color: var(--orange);
+}
+
+.branch-details {
+    color: var(--gray-dark);
+    font-size: 14px;
+}
+
+.branch-details p {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.branch-details i {
+    color: var(--orange);
+}
+
 .form-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -971,6 +1013,92 @@ body {
     border-right: 2px solid rgba(255,255,255,0.3);
 }
 
+/* فاتورة الجوال */
+.mobile-cart-toggle {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--orange);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    border: none;
+    cursor: pointer;
+}
+
+.mobile-cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #DC3545;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.cart-summary-mobile {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: white;
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+    z-index: 1001;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.cart-summary-mobile.show {
+    display: block;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.cart-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--orange);
+}
+
+.cart-summary-header h3 {
+    margin: 0;
+    color: var(--orange);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-cart-summary {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--gray);
+    cursor: pointer;
+}
+
 /* الفوتر */
 .main-footer {
     background: var(--black);
@@ -1090,6 +1218,30 @@ body {
         padding: 12px 20px;
         font-size: 14px;
     }
+    
+    /* تحسينات للطلب على الجوال */
+    .order-summary {
+        position: relative;
+        top: 0;
+        margin-bottom: 20px;
+    }
+    
+    .mobile-cart-toggle {
+        display: flex;
+    }
+    
+    .btn-submit {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 0;
+        z-index: 1000;
+    }
+    
+    .order-section {
+        padding-bottom: 80px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1113,6 +1265,36 @@ body {
         left: 15px;
         bottom: 15px;
         padding: 10px 15px;
+    }
+    
+    .mobile-cart-toggle {
+        bottom: 15px;
+        right: 15px;
+        width: 55px;
+        height: 55px;
+        font-size: 22px;
+    }
+    
+    .floating-total {
+        display: none;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .address-type {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 

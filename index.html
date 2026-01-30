@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍽️</text></svg>">
+    <style>
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
     <!-- الهيدر -->
@@ -248,17 +258,21 @@
                         
                         <!-- استلام من الفرع -->
                         <div class="address-details" id="branchAddress" style="display: none;">
-                            <div class="form-group">
-                                <label for="branchName">
+                            <div class="branch-info">
+                                <div class="branch-header">
                                     <i class="fas fa-store"></i>
-                                    الفرع *
-                                </label>
-                                <select id="branchName" required>
-                                    <option value="">اختر الفرع</option>
-                                    <option value="الفرع الرئيسي - الرحاب">الفرع الرئيسي - الرحاب</option>
-                                    <option value="فرع الرحاب 2">فرع الرحاب 2</option>
-                                    <option value="فرع التجمع الخامس">فرع التجمع الخامس</option>
-                                </select>
+                                    <h4>الفرع الرئيسي - الرحاب</h4>
+                                </div>
+                                <div class="branch-details">
+                                    <p>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        الرحاب، أمام مسجد الرحاب
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-clock"></i>
+                                        يومياً 12 ظهراً - 12 مساءً
+                                    </p>
+                                </div>
                             </div>
                             
                             <div class="form-group">
@@ -329,6 +343,29 @@
             <span>ج.م</span>
         </div>
     </button>
+
+    <!-- فاتورة الجوال -->
+    <button class="mobile-cart-toggle" id="mobileCartToggle" style="display: none;">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="mobile-cart-count">0</span>
+    </button>
+
+    <div class="cart-summary-mobile" id="cartSummaryMobile">
+        <div class="cart-summary-header">
+            <h3><i class="fas fa-shopping-cart"></i> سلة الطلبات</h3>
+            <button class="close-cart-summary" id="closeCartSummary">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="summary-items" id="summaryItemsMobile">
+            <!-- سيتم تعبئته جافاسكريبت -->
+        </div>
+        
+        <div class="summary-total" id="summaryTotalMobile">
+            <!-- سيتم تعبئته جافاسكريبت -->
+        </div>
+    </div>
 
     <!-- الفوتر -->
     <footer class="main-footer">
