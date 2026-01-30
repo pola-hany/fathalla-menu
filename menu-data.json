@@ -1,0 +1,408 @@
+{
+  "brand": {
+    "name": "مطبخ فتح الله ماركت",
+    "phone": "201234567890",
+    "description": "نقدم أشهى المأكولات بأجود المكونات وأعلى معايير الجودة",
+    "logo": "🍽️",
+    "address": "الرحاب، القاهرة الجديدة",
+    "working_hours": {
+      "from": "12:00",
+      "to": "00:00",
+      "days": "يومياً"
+    },
+    "colors": {
+      "primary": "#FF6B00",
+      "secondary": "#000000",
+      "accent": "#FFFFFF",
+      "background": "#F5F5F5"
+    },
+    "social_media": {
+      "whatsapp": "201234567890",
+      "facebook": "fathalla.market",
+      "instagram": "fathalla_market"
+    }
+  },
+  "delivery": {
+    "inside_rahab": {
+      "fee": 30,
+      "min_order": 0,
+      "time": "45-60 دقيقة"
+    },
+    "outside_rahab": {
+      "fee": "متغيرة",
+      "min_order": 100,
+      "time": "60-90 دقيقة"
+    },
+    "pickup": {
+      "fee": 0,
+      "min_order": 0,
+      "time": "30 دقيقة"
+    }
+  },
+  "branches": [
+    {
+      "id": "main",
+      "name": "الفرع الرئيسي - الرحاب",
+      "address": "الرحاب، أمام مسجد الرحاب",
+      "phone": "201234567890",
+      "working_hours": "12 ظهراً - 12 مساءً"
+    },
+    {
+      "id": "rahab2",
+      "name": "فرع الرحاب 2",
+      "address": "الرحاب، منطقة السوق",
+      "phone": "201234567891",
+      "working_hours": "12 ظهراً - 12 مساءً"
+    },
+    {
+      "id": "taj5",
+      "name": "فرع التجمع الخامس",
+      "address": "التجمع الخامس، مول الشروق",
+      "phone": "201234567892",
+      "working_hours": "12 ظهراً - 1 صباحاً"
+    }
+  ],
+  "sections": [
+    {
+      "id": "grills",
+      "name": "المشويات",
+      "icon": "fas fa-fire",
+      "description": "أجود أنواع اللحوم والدواجن المشوية على الفحم",
+      "order": 1
+    },
+    {
+      "id": "meals",
+      "name": "الوجبات",
+      "icon": "fas fa-utensils",
+      "description": "وجبات كاملة مع الأرز والخضار والصلصات",
+      "order": 2
+    },
+    {
+      "id": "sandwiches",
+      "name": "السندوتشات",
+      "icon": "fas fa-bread-slice",
+      "description": "سندوتشات طازجة بأنواع مختلفة",
+      "order": 3
+    },
+    {
+      "id": "extras",
+      "name": "الإضافات",
+      "icon": "fas fa-plus-circle",
+      "description": "إضافات و مقبلات و سلطات",
+      "order": 4
+    },
+    {
+      "id": "drinks",
+      "name": "المشروبات",
+      "icon": "fas fa-glass-whiskey",
+      "description": "مشروبات ساخنة وباردة",
+      "order": 5
+    },
+    {
+      "id": "desserts",
+      "name": "الحلويات",
+      "icon": "fas fa-ice-cream",
+      "description": "حلويات شرقية وغربية",
+      "order": 6,
+      "active": false
+    }
+  ],
+  "menu_items": [
+    {
+      "id": 1,
+      "code": "GRILL-001",
+      "name": "شيش طاووق",
+      "description": "دجاج مشوي مع الخضار والتوابل الخاصة",
+      "detailed_description": "قطع دجاج مشوية على الفحم مع الفلفل والبصل والطماطم وتوابل سرية",
+      "price": 65.00,
+      "offerPrice": 55.00,
+      "offer_end_date": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400&h=300&fit=crop",
+      "category": "grills",
+      "available": true,
+      "badge": "الأكثر طلباً",
+      "popular": true,
+      "spicy_level": 1,
+      "preparation_time": 25,
+      "calories": 450,
+      "tags": ["دجاج", "مشويات", "الأكثر مبيعاً"],
+      "ingredients": ["دجاج", "فلفل", "بصل", "طماطم", "توابل خاصة"],
+      "addons": [
+        {
+          "id": 101,
+          "name": "أرز أبيض",
+          "price": 10.00
+        },
+        {
+          "id": 102,
+          "name": "صوص ثوم",
+          "price": 5.00
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "code": "GRILL-002",
+      "name": "كفتة مشوية",
+      "description": "كفتة لحم ضأن مشوية على الفحم",
+      "detailed_description": "كفتة لحم ضأن طازج مشوية على الفحم مع البقدونس والبصل",
+      "price": 70.00,
+      "offerPrice": 60.00,
+      "offer_end_date": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop",
+      "category": "grills",
+      "available": true,
+      "badge": "عرض",
+      "popular": false,
+      "spicy_level": 2,
+      "preparation_time": 30,
+      "calories": 520,
+      "tags": ["لحم", "مشويات", "عرض خاص"],
+      "ingredients": ["لحم ضأن", "بقدونس", "بصل", "توابل"]
+    },
+    {
+      "id": 3,
+      "code": "MEAL-001",
+      "name": "وجبة كباب",
+      "description": "كباب مشوي مع أرز وصوص الطماطم",
+      "detailed_description": "كباب لحم ضأن مشوي مع أرز مصري وصوص طماطم خاص وسلطة خضراء",
+      "price": 85.00,
+      "offerPrice": null,
+      "image": "https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?w=400&h=300&fit=crop",
+      "category": "meals",
+      "available": true,
+      "badge": null,
+      "popular": true,
+      "spicy_level": 2,
+      "preparation_time": 35,
+      "calories": 650,
+      "tags": ["وجبة كاملة", "أرز", "لحم"]
+    },
+    {
+      "id": 4,
+      "code": "SAND-001",
+      "name": "سندوتش شاورما",
+      "description": "شاورما دجاج في خبز طازج مع الخضار",
+      "detailed_description": "شاورما دجاج مشوي في خبز صاج طازج مع الخس والطماطم وصوص الثوم",
+      "price": 35.00,
+      "offerPrice": 30.00,
+      "offer_end_date": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+      "category": "sandwiches",
+      "available": true,
+      "badge": "عرض",
+      "popular": false,
+      "spicy_level": 1,
+      "preparation_time": 15,
+      "calories": 380,
+      "tags": ["سندوتش", "دجاج", "وجبة سريعة"]
+    },
+    {
+      "id": 5,
+      "code": "EXTRA-001",
+      "name": "سلطة طحينة",
+      "description": "سلطة طحينة طازجة",
+      "detailed_description": "سلطة طحينة محضرة يومياً مع البقدونس والليمون",
+      "price": 10.00,
+      "offerPrice": null,
+      "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop",
+      "category": "extras",
+      "available": true,
+      "badge": null,
+      "popular": false,
+      "spicy_level": 0,
+      "preparation_time": 10,
+      "calories": 150,
+      "tags": ["سلطة", "مقبلات"]
+    },
+    {
+      "id": 6,
+      "code": "DRINK-001",
+      "name": "مشروب غازي",
+      "description": "مشروب غازي بارد",
+      "detailed_description": "مشروب غازي بارد بحجم 330 مل",
+      "price": 12.00,
+      "offerPrice": 10.00,
+      "offer_end_date": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400&h=300&fit=crop",
+      "category": "drinks",
+      "available": true,
+      "badge": "عرض",
+      "popular": false,
+      "spicy_level": 0,
+      "preparation_time": 2,
+      "calories": 140,
+      "tags": ["مشروبات", "بارد"],
+      "variations": [
+        {
+          "name": "بيبسي",
+          "price": 12.00
+        },
+        {
+          "name": "كوكاكولا",
+          "price": 12.00
+        },
+        {
+          "name": "سفن أب",
+          "price": 12.00
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "code": "GRILL-003",
+      "name": "فراخ مشوية",
+      "description": "فرخة كاملة مشوية على الفحم",
+      "detailed_description": "فرخة كاملة مشوية على الفحم مع الليمون والزعتر",
+      "price": 90.00,
+      "offerPrice": 75.00,
+      "offer_end_date": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=400&h=300&fit=crop",
+      "category": "grills",
+      "available": true,
+      "badge": "الأكثر طلباً",
+      "popular": true,
+      "spicy_level": 1,
+      "preparation_time": 40,
+      "calories": 700,
+      "tags": ["دجاج", "وجبة عائلية", "الأكثر مبيعاً"]
+    },
+    {
+      "id": 8,
+      "code": "MEAL-002",
+      "name": "وجبة مكرونة بشاميل",
+      "description": "مكرونة بشاميل مع صدر دجاج",
+      "detailed_description": "مكرونة بشاميل محضرة بالبيشاميل مع صدر دجاج مشوي",
+      "price": 55.00,
+      "offerPrice": null,
+      "image": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&h=300&fit=crop",
+      "category": "meals",
+      "available": true,
+      "badge": null,
+      "popular": false,
+      "spicy_level": 0,
+      "preparation_time": 25,
+      "calories": 480,
+      "tags": ["مكرونة", "دجاج", "بيشاميل"]
+    },
+    {
+      "id": 9,
+      "code": "EXTRA-002",
+      "name": "بطاطس مقلية",
+      "description": "بطاطس مقلية مقرمشة",
+      "detailed_description": "بطاطس مقلية مقرمشة محضرة يومياً",
+      "price": 15.00,
+      "offerPrice": 12.00,
+      "offer_end_date": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=400&h=300&fit=crop",
+      "category": "extras",
+      "available": true,
+      "badge": null,
+      "popular": true,
+      "spicy_level": 0,
+      "preparation_time": 10,
+      "calories": 320,
+      "tags": ["مقبلات", "بطاطس"],
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 10.00
+        },
+        {
+          "name": "وسط",
+          "price": 15.00
+        },
+        {
+          "name": "كبير",
+          "price": 20.00
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "code": "DRINK-002",
+      "name": "عصير برتقال طازج",
+      "description": "عصير برتقال طبيعي 100%",
+      "detailed_description": "عصير برتقال طازج معصور يومياً",
+      "price": 18.00,
+      "offerPrice": 15.00,
+      "offer_end_date": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400&h=300&fit=crop",
+      "category": "drinks",
+      "available": true,
+      "badge": "طازج",
+      "popular": true,
+      "spicy_level": 0,
+      "preparation_time": 5,
+      "calories": 110,
+      "tags": ["مشروبات", "طازج", "صحي"],
+      "sizes": [
+        {
+          "name": "كوب صغير",
+          "price": 12.00
+        },
+        {
+          "name": "كوب وسط",
+          "price": 18.00
+        },
+        {
+          "name": "كوب كبير",
+          "price": 25.00
+        }
+      ]
+    }
+  ],
+  "offers": [
+    {
+      "id": "offer1",
+      "title": "عرض العائلة",
+      "description": "وجبتين مشويات + إضافتين + مشروبان",
+      "detailed_description": "عرض خاص للعائلة يشمل وجبتين مشويات من اختيارك + إضافتين + مشروبان",
+      "originalPrice": 180,
+      "offerPrice": 150,
+      "discount_percentage": 17,
+      "valid_until": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=600&h=400&fit=crop",
+      "active": true,
+      "priority": 1,
+      "items_included": ["شيش طاووق", "كفتة مشوية", "سلطة طحينة", "بطاطس مقلية", "مشروبان"]
+    },
+    {
+      "id": "offer2",
+      "title": "عرض السندوتشات",
+      "description": "3 سندوتشات شاورما + 3 مشروبات",
+      "detailed_description": "عرض مميز لـ 3 سندوتشات شاورما دجاج + 3 مشروبات غازية",
+      "originalPrice": 120,
+      "offerPrice": 95,
+      "discount_percentage": 21,
+      "valid_until": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=600&h=400&fit=crop",
+      "active": true,
+      "priority": 2
+    },
+    {
+      "id": "offer3",
+      "title": "عرض الفطار",
+      "description": "فرخة مشوية كاملة + 2 إضافات",
+      "detailed_description": "عرض الفطار: فرخة مشوية كاملة + سلطة طحينة + بطاطس مقلية",
+      "originalPrice": 115,
+      "offerPrice": 95,
+      "discount_percentage": 17,
+      "valid_until": "2024-12-31",
+      "image": "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=600&h=400&fit=crop",
+      "active": true,
+      "priority": 3
+    }
+  ],
+  "settings": {
+    "currency": "ج.م",
+    "currency_symbol": "£",
+    "default_delivery_fee": 30,
+    "min_order_amount": 50,
+    "enable_reviews": true,
+    "enable_ratings": false,
+    "timezone": "Africa/Cairo",
+    "language": "ar",
+    "version": "2.0"
+  }
+}

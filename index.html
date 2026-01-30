@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطبخ فتح الله ماركت | قائمة الطعام الرسمية</title>
+    <meta name="description" content="اطلب أشهى المأكولات والمشويات من مطبخ فتح الله ماركت">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍽️</text></svg>">
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <!-- اللوجو -->
+                <div class="brand-logo">
+                    <div class="logo-circle">
+                        <span class="logo-text">فتح الله</span>
+                        <span class="logo-sub">ماركت</span>
+                    </div>
+                    <div class="brand-name">
+                        <h1>مطبخ فتح الله ماركت</h1>
+                        <p class="tagline">أطيب الأكلات بأجود المكونات</p>
+                    </div>
+                </div>
+
+                <!-- التنقل -->
+                <nav class="main-nav">
+                    <button class="nav-toggle" id="navToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                        <li><a href="#menu" class="nav-link"><i class="fas fa-utensils"></i> القائمة</a></li>
+                        <li><a href="#offers" class="nav-link"><i class="fas fa-tags"></i> العروض</a></li>
+                        <li><a href="#order" class="nav-link"><i class="fas fa-shopping-cart"></i> اطلب الآن</a></li>
+                    </ul>
+
+                    <!-- السلة -->
+                    <div class="cart-wrapper">
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-basket"></i>
+                            <span class="cart-count">0</span>
+                        </div>
+                        <div class="cart-total">
+                            <span>ج.م</span>
+                            <span id="totalPrice">0.00</span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- الهيرو -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2 class="hero-title">أطيب الأكلات من <span class="highlight">مطبخ فتح الله ماركت</span></h2>
+                    <p class="hero-desc">مشويات طازجة، وجبات لذيذة، سندوتشات سريعة. كل ما تشتهيه موجود عندنا مع توصيل سريع</p>
+                    <div class="hero-actions">
+                        <a href="#menu" class="btn btn-primary">
+                            <i class="fas fa-utensils"></i> تصفح القائمة
+                        </a>
+                        <a href="tel:01234567890" class="btn btn-secondary">
+                            <i class="fas fa-phone"></i> اتصل بنا
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- العروض -->
+    <section class="offers-section" id="offers">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-tags"></i>
+                <span>العروض المميزة</span>
+            </h2>
+            
+            <div class="offers-grid" id="offersGrid">
+                <!-- سيتم تعبئة العروض تلقائياً -->
+            </div>
+        </div>
+    </section>
+
+    <!-- القائمة -->
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                <span>قائمة الطعام</span>
+            </h2>
+            
+            <!-- فلاتر الأقسام -->
+            <div class="category-filters" id="categoryFilters">
+                <!-- سيتم تعبئة الفلاتر تلقائياً -->
+            </div>
+            
+            <!-- الأصناف -->
+            <div class="menu-grid" id="menuGrid">
+                <div class="loading">جاري تحميل القائمة...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الطلب -->
+    <section class="order-section" id="order">
+        <div class="container">
+            <div class="order-wrapper">
+                <!-- ملخص الطلب -->
+                <div class="order-summary">
+                    <h2 class="section-title">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>سلة الطلبات</span>
+                    </h2>
+                    
+                    <div class="summary-items" id="summaryItems">
+                        <div class="empty-cart">
+                            <i class="fas fa-shopping-basket"></i>
+                            <p>السلة فارغة</p>
+                            <small>أضف أصنافاً من القائمة</small>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-total">
+                        <div class="total-row">
+                            <span>المجموع</span>
+                            <span id="subtotal">0.00 ج.م</span>
+                        </div>
+                        <div class="total-row">
+                            <span>رسوم التوصيل</span>
+                            <span id="delivery">0.00 ج.م</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>الإجمالي النهائي</span>
+                            <span id="grandTotal">0.00 ج.م</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- بيانات العميل -->
+                <div class="customer-form">
+                    <h2 class="section-title">
+                        <i class="fas fa-user"></i>
+                        <span>بيانات الاستلام</span>
+                    </h2>
+                    
+                    <form id="orderForm">
+                        <!-- المعلومات -->
+                        <div class="form-group">
+                            <label for="customerName">
+                                <i class="fas fa-user"></i>
+                                الاسم الكامل *
+                            </label>
+                            <input type="text" id="customerName" placeholder="اكتب اسمك ثلاثي" required>
+                            <div class="error-message" id="nameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerPhone">
+                                <i class="fas fa-phone"></i>
+                                رقم الهاتف *
+                            </label>
+                            <input type="tel" id="customerPhone" placeholder="مثال: 01012345678" required>
+                            <div class="error-message" id="phoneError"></div>
+                        </div>
+                        
+                        <!-- طريقة الاستلام -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-map-marker-alt"></i>
+                                طريقة الاستلام *
+                            </label>
+                            <div class="address-type">
+                                <label class="radio-option">
+                                    <input type="radio" name="addressType" value="inside" checked>
+                                    <span class="radio-label">
+                                        <i class="fas fa-home"></i>
+                                        توصيل داخل الرحاب
+                                    </span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="addressType" value="outside">
+                                    <span class="radio-label">
+                                        <i class="fas fa-building"></i>
+                                        توصيل خارج الرحاب
+                                    </span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="addressType" value="branch">
+                                    <span class="radio-label">
+                                        <i class="fas fa-store"></i>
+                                        استلام من الفرع
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- داخل الرحاب -->
+                        <div class="address-details" id="insideAddress">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="group">المجموعة *</label>
+                                    <input type="text" id="group" placeholder="رقم أو اسم المجموعة" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="building">العمارة *</label>
+                                    <input type="text" id="building" placeholder="رقم العمارة" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="apartment">الشقة *</label>
+                                    <input type="text" id="apartment" placeholder="رقم الشقة" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="notes">ملاحظات إضافية</label>
+                                <textarea id="notes" rows="2" placeholder="ملاحظات حول العنوان"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- خارج الرحاب -->
+                        <div class="address-details" id="outsideAddress" style="display: none;">
+                            <div class="form-group">
+                                <label for="fullAddress">العنوان الكامل *</label>
+                                <textarea id="fullAddress" rows="3" placeholder="اكتب العنوان بالتفصيل"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="outsideNotes">ملاحظات إضافية</label>
+                                <textarea id="outsideNotes" rows="2" placeholder="ملاحظات حول العنوان"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- استلام من الفرع -->
+                        <div class="address-details" id="branchAddress" style="display: none;">
+                            <div class="form-group">
+                                <label for="branchName">
+                                    <i class="fas fa-store"></i>
+                                    الفرع *
+                                </label>
+                                <select id="branchName" required>
+                                    <option value="">اختر الفرع</option>
+                                    <option value="الفرع الرئيسي - الرحاب">الفرع الرئيسي - الرحاب</option>
+                                    <option value="فرع الرحاب 2">فرع الرحاب 2</option>
+                                    <option value="فرع التجمع الخامس">فرع التجمع الخامس</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pickupTime">
+                                    <i class="fas fa-clock"></i>
+                                    وقت الاستلام *
+                                </label>
+                                <div class="time-selection">
+                                    <div class="current-time">
+                                        <span>الوقت الحالي: </span>
+                                        <span id="currentTimeDisplay">--:--</span>
+                                    </div>
+                                    <input type="time" id="pickupTime" required min="00:00">
+                                    <div class="time-info">
+                                        <small>يجب أن يكون وقت الاستلام بعد الوقت الحالي</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="branchNotes">ملاحظات إضافية</label>
+                                <textarea id="branchNotes" rows="2" placeholder="ملاحظات حول الاستلام"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- الدفع -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-money-bill-wave"></i>
+                                طريقة الدفع
+                            </label>
+                            <div class="payment-methods">
+                                <label class="radio-option">
+                                    <input type="radio" name="paymentMethod" value="cash" checked>
+                                    <span class="radio-label">
+                                        <i class="fas fa-money-bill"></i>
+                                        الدفع عند الاستلام
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- الإرسال -->
+                        <button type="submit" class="btn btn-submit" id="submitOrder" disabled>
+                            <i class="fab fa-whatsapp"></i>
+                            <span>إرسال الطلب عبر واتساب</span>
+                        </button>
+                        
+                        <p class="form-notice">
+                            <i class="fas fa-info-circle"></i>
+                            الطلب عبر واتساب فقط - خدمة العملاء متاحة 24/7
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- زر الطلب العائم -->
+    <button class="floating-order-btn" id="floatingOrderBtn">
+        <div class="floating-content">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="floating-text">اطلب الآن</span>
+            <span class="floating-count">0</span>
+        </div>
+        <div class="floating-total">
+            <span id="floatingTotal">0.00</span>
+            <span>ج.م</span>
+        </div>
+    </button>
+
+    <!-- الفوتر -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- معلومات -->
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-circle small">
+                            <span class="logo-text">فتح الله</span>
+                        </div>
+                        <h3>فتح الله ماركت</h3>
+                    </div>
+                    <p class="footer-desc">
+                        نقدم أشهى المأكولات بأجود المكونات وأعلى معايير الجودة.
+                    </p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>01234567890</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>الطلب عبر واتساب</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>يومياً 12 ظهراً - 12 مساءً</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- روابط -->
+                <div class="footer-section">
+                    <h4 class="footer-title">روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                        <li><a href="#menu"><i class="fas fa-chevron-left"></i> القائمة</a></li>
+                        <li><a href="#offers"><i class="fas fa-chevron-left"></i> العروض</a></li>
+                        <li><a href="#order"><i class="fas fa-chevron-left"></i> اطلب الآن</a></li>
+                    </ul>
+                </div>
+                
+                <!-- أقسام -->
+                <div class="footer-section">
+                    <h4 class="footer-title">أقسام المطبخ</h4>
+                    <ul class="footer-categories">
+                        <li><i class="fas fa-fire"></i> المشويات</li>
+                        <li><i class="fas fa-utensil-spoon"></i> الوجبات</li>
+                        <li><i class="fas fa-bread-slice"></i> السندوتشات</li>
+                        <li><i class="fas fa-plus-circle"></i> الإضافات</li>
+                        <li><i class="fas fa-glass-whiskey"></i> المشروبات</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- حقوق -->
+            <div class="footer-bottom">
+                <p class="copyright">
+                    <i class="far fa-copyright"></i>
+                    2024 مطبخ فتح الله ماركت
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- سكريبت -->
+    <script src="script.js"></script>
+</body>
+</html>
