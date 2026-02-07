@@ -47,7 +47,7 @@ const FathallaApp = {
                 this.whatsappNumber = this.data.brand.phone;
                 console.log('📞 رقم الواتساب:', this.whatsappNumber);
             } else {
-                this.whatsappNumber = "2⁦01212683843⁩";
+                this.whatsappNumber = "201234567890";
             }
             
             // تهيئة البيانات إذا كانت غير موجودة
@@ -78,7 +78,7 @@ const FathallaApp = {
         this.data = {
             brand: {
                 name: "مطبخ فتح الله ماركت",
-                phone: "2⁦01212683843⁩",
+                phone: "201234567890",
                 description: "نقدم أشهى المأكولات بأجود المكونات وأعلى معايير الجودة",
                 colors: {
                     primary: "#FF6B00",
@@ -1363,5 +1363,4 @@ document.addEventListener("DOMContentLoaded", () => {
 // تنظيف عند إغلاق النافذة
 window.addEventListener('unload', () => {
     FathallaApp.cleanup();
-
 });
